@@ -1,0 +1,1924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Buynezt compares quick-commerce prices, delivery times and offers." />
+  <title>Buynezt | Find the best deal near you</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+    :root {
+      --ink: #12231f;
+      --muted: #6d7d78;
+      --line: #e5ebe7;
+      --cream: #f7faf6;
+      --white: #ffffff;
+      --green: #0d806b;
+      --green-dark: #075b4d;
+      --mint: #dff6e8;
+      --lime: #e7f66d;
+      --orange: #ffad5c;
+      --red: #e96555;
+      --shadow: 0 20px 50px rgba(22, 58, 45, 0.09);
+      --radius: 24px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background:
+        radial-gradient(circle at 8% 2%, rgba(231, 246, 109, .35), transparent 24rem),
+        radial-gradient(circle at 100% 20%, rgba(223, 246, 232, .8), transparent 30rem),
+        var(--cream);
+      color: var(--ink);
+      font-family: "DM Sans", sans-serif;
+      min-height: 100vh;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+      border: 0;
+    }
+
+    .app-shell {
+      max-width: 1440px;
+      margin: auto;
+      padding: 22px 34px 50px;
+    }
+
+    .topbar {
+      align-items: center;
+      display: flex;
+      gap: 24px;
+      justify-content: space-between;
+      margin-bottom: 26px;
+    }
+
+    .brand {
+      align-items: center;
+      display: flex;
+      gap: 10px;
+      min-width: 210px;
+    }
+
+    .brand-mark {
+      align-items: center;
+      background: var(--ink);
+      border-radius: 14px;
+      color: var(--lime);
+      display: flex;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      height: 42px;
+      justify-content: center;
+      transform: rotate(-5deg);
+      width: 42px;
+    }
+
+    .brand-name {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -1px;
+    }
+
+    .brand-name span {
+      color: var(--green);
+    }
+
+    .location-button,
+    .icon-button {
+      align-items: center;
+      background: rgba(255,255,255,.75);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      color: var(--ink);
+      display: flex;
+      gap: 10px;
+      padding: 11px 14px;
+    }
+
+    .location-button {
+      margin-right: auto;
+    }
+
+    .location-button small {
+      color: var(--muted);
+      display: block;
+      font-size: 11px;
+      text-align: left;
+    }
+
+    .location-button strong {
+      display: block;
+      font-size: 13px;
+      text-align: left;
+    }
+
+    .top-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .icon-button {
+      font-size: 18px;
+      height: 45px;
+      justify-content: center;
+      padding: 0;
+      position: relative;
+      width: 45px;
+    }
+
+    .cart-count {
+      align-items: center;
+      background: var(--red);
+      border: 2px solid var(--cream);
+      border-radius: 50%;
+      color: white;
+      display: flex;
+      font-size: 10px;
+      height: 19px;
+      justify-content: center;
+      position: absolute;
+      right: -5px;
+      top: -6px;
+      width: 19px;
+    }
+
+    .hero {
+      align-items: center;
+      background:
+        linear-gradient(125deg, rgba(9, 90, 74, .96), rgba(23, 127, 104, .94)),
+        url("https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1600&q=80") center/cover;
+      border-radius: 34px;
+      color: white;
+      display: grid;
+      gap: 30px;
+      grid-template-columns: 1fr 380px;
+      min-height: 310px;
+      overflow: hidden;
+      padding: 52px 58px;
+      position: relative;
+    }
+
+    .hero::after {
+      animation: floatBlob 6s ease-in-out infinite;
+      background: var(--lime);
+      border-radius: 50%;
+      content: "";
+      height: 230px;
+      opacity: .9;
+      position: absolute;
+      right: -80px;
+      top: -90px;
+      width: 230px;
+    }
+
+    .hero-copy {
+      max-width: 640px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      color: var(--lime);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.6px;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(35px, 5vw, 64px);
+      letter-spacing: -3px;
+      line-height: .98;
+      margin-bottom: 18px;
+    }
+
+    .hero-copy p {
+      color: #d8eee5;
+      font-size: 16px;
+      line-height: 1.6;
+      max-width: 520px;
+    }
+
+    .search-panel {
+      background: rgba(255,255,255,.96);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      padding: 9px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .search-box {
+      align-items: center;
+      display: flex;
+      gap: 10px;
+      padding: 4px 9px;
+    }
+
+    .search-box span {
+      font-size: 22px;
+    }
+
+    .search-box input {
+      border: 0;
+      color: var(--ink);
+      flex: 1;
+      font-size: 15px;
+      min-width: 0;
+      outline: 0;
+      padding: 13px 2px;
+    }
+
+    .search-button {
+      background: var(--lime);
+      border-radius: 14px;
+      color: var(--ink);
+      font-weight: 700;
+      padding: 13px 16px;
+    }
+
+    .suggestions {
+      color: var(--muted);
+      font-size: 12px;
+      padding: 12px 15px 3px;
+    }
+
+    .category-row {
+      display: flex;
+      gap: 12px;
+      margin: 28px 0;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+    }
+
+    .category-row::-webkit-scrollbar {
+      display: none;
+    }
+
+    .category {
+      align-items: center;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      color: var(--ink);
+      display: flex;
+      flex: 0 0 auto;
+      font-size: 13px;
+      gap: 8px;
+      padding: 12px 16px;
+      transition: transform .15s ease, background .2s ease, color .2s ease, border-color .2s ease;
+    }
+
+    .category:hover {
+      transform: translateY(-2px);
+    }
+
+    .category:active {
+      transform: scale(0.95);
+    }
+
+    .category.active {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: white;
+    }
+
+    .section-heading {
+      align-items: end;
+      display: flex;
+      justify-content: space-between;
+      margin: 28px 0 16px;
+    }
+
+    .section-heading h2 {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 25px;
+      letter-spacing: -1px;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 4px;
+    }
+
+    .sort-select {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      color: var(--ink);
+      padding: 11px 13px;
+    }
+
+    .product-grid {
+      display: grid;
+      gap: 18px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes floatBlob {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(14px) rotate(8deg); }
+    }
+
+    @keyframes cartBounce {
+      0%, 100% { transform: scale(1); }
+      30% { transform: scale(1.35); }
+      55% { transform: scale(0.9); }
+      75% { transform: scale(1.15); }
+    }
+
+    @keyframes cardPop {
+      0% { transform: scale(1); }
+      50% { transform: scale(0.97); }
+      100% { transform: scale(1); }
+    }
+
+    .product-card {
+      animation: fadeInUp .5s ease both;
+      background: white;
+      border: 1px solid rgba(213, 226, 219, .75);
+      border-radius: var(--radius);
+      box-shadow: 0 8px 25px rgba(31, 67, 52, .045);
+      overflow: hidden;
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+
+    .product-card:nth-child(1) { animation-delay: .02s; }
+    .product-card:nth-child(2) { animation-delay: .08s; }
+    .product-card:nth-child(3) { animation-delay: .14s; }
+    .product-card:nth-child(4) { animation-delay: .20s; }
+    .product-card:nth-child(5) { animation-delay: .26s; }
+    .product-card:nth-child(6) { animation-delay: .32s; }
+    .product-card:nth-child(7) { animation-delay: .38s; }
+    .product-card:nth-child(8) { animation-delay: .44s; }
+
+    .product-card:hover {
+      box-shadow: var(--shadow);
+      transform: translateY(-8px) scale(1.015);
+    }
+
+    .product-card.just-added {
+      animation: cardPop .35s ease;
+    }
+
+    .cart-count.bump {
+      animation: cartBounce .5s ease;
+    }
+
+    .product-image {
+      align-items: center;
+      background: #f2f7f2;
+      display: flex;
+      height: 170px;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .product-photo {
+      height: 145px;
+      object-fit: contain;
+      position: relative;
+      transition: transform .35s ease;
+      width: 82%;
+      z-index: 1;
+    }
+
+    .product-card:hover .product-photo {
+      transform: scale(1.08) rotate(-2deg);
+    }
+
+    .product-image::after {
+      background: rgba(255,255,255,.5);
+      border-radius: 50%;
+      content: "";
+      height: 120px;
+      position: absolute;
+      width: 120px;
+    }
+
+    .product-emoji {
+      position: relative;
+      z-index: 1;
+    }
+
+    .deal-label {
+      background: var(--red);
+      border-radius: 9px;
+      color: white;
+      font-size: 10px;
+      font-weight: 700;
+      left: 12px;
+      padding: 6px 8px;
+      position: absolute;
+      top: 12px;
+      z-index: 2;
+    }
+
+    .product-info {
+      padding: 17px;
+    }
+
+    .product-info h3 {
+      font-size: 15px;
+      line-height: 1.35;
+      margin-bottom: 6px;
+    }
+
+    .product-meta {
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+
+    .rating {
+      color: #d58616;
+      font-size: 12px;
+    }
+
+    .compare-list {
+      border-top: 1px solid var(--line);
+      margin: 0 -17px;
+      padding: 6px 17px 0;
+    }
+
+    .compare-row {
+      align-items: center;
+      display: grid;
+      gap: 8px;
+      grid-template-columns: 92px 1fr auto;
+      padding: 9px 0;
+    }
+
+    .store-logo {
+      align-items: center;
+      display: flex;
+    }
+
+    .store-logo img {
+      display: block;
+      height: 22px;
+      object-fit: contain;
+      width: 48px;
+    }
+
+    .store-logo img.instamart {
+      height: 36px;
+      width: 74px;
+    }
+
+    .store-logo img.blinkit {
+      height: 32px;
+      width: 66px;
+    }
+
+    .store {
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .store.blinkit { color: #eea600; }
+    .store.zepto { color: #9e3cff; }
+    .store.instamart { color: #e94a2e; }
+    .store.flipkart { color: #2877e8; }
+
+    .delivery {
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .price {
+      font-size: 13px;
+      font-weight: 700;
+      text-align: right;
+    }
+
+    .best-price {
+      color: var(--green);
+    }
+
+    .add-button {
+      background: var(--ink);
+      border-radius: 11px;
+      color: white;
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      margin-top: 12px;
+      padding: 12px;
+      text-align: center;
+      transition: transform .15s ease, background .2s ease;
+      width: 100%;
+    }
+
+    .add-button:hover {
+      background: var(--green-dark);
+    }
+
+    .add-button:active {
+      transform: scale(0.96);
+    }
+
+    .empty-state {
+      color: var(--muted);
+      display: none;
+      grid-column: 1 / -1;
+      padding: 50px;
+      text-align: center;
+    }
+
+    .why-section {
+      background: var(--ink);
+      border-radius: 28px;
+      color: white;
+      display: grid;
+      gap: 18px;
+      grid-template-columns: repeat(3, 1fr);
+      margin-top: 48px;
+      padding: 28px;
+    }
+
+    .why-card {
+      border-right: 1px solid rgba(255,255,255,.15);
+      padding: 12px 18px;
+    }
+
+    .why-card:last-child {
+      border: 0;
+    }
+
+    .why-card strong {
+      color: var(--lime);
+      display: block;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 17px;
+      margin-bottom: 7px;
+    }
+
+    .why-card p {
+      color: #b9d2c9;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .drawer-backdrop {
+      background: rgba(8, 24, 19, .4);
+      inset: 0;
+      opacity: 0;
+      pointer-events: none;
+      position: fixed;
+      transition: .25s;
+      z-index: 8;
+    }
+
+    .drawer-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .cart-drawer {
+      background: white;
+      border-radius: 28px 0 0 28px;
+      bottom: 0;
+      max-width: 440px;
+      padding: 28px;
+      position: fixed;
+      right: 0;
+      top: 0;
+      transform: translateX(100%);
+      transition: .3s ease;
+      width: 100%;
+      z-index: 9;
+    }
+
+    .cart-drawer.open {
+      transform: translateX(0);
+    }
+
+    .drawer-header {
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      padding-bottom: 18px;
+    }
+
+    .drawer-header h2 {
+      font-family: "Space Grotesk", sans-serif;
+    }
+
+    .close-button {
+      background: var(--cream);
+      border-radius: 50%;
+      font-size: 20px;
+      height: 36px;
+      width: 36px;
+    }
+
+    .cart-items {
+      max-height: 62vh;
+      overflow-y: auto;
+      padding: 18px 0;
+    }
+
+    .cart-item {
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      gap: 12px;
+      padding: 13px 0;
+    }
+
+    .cart-item-icon {
+      align-items: center;
+      background: var(--mint);
+      border-radius: 13px;
+      display: flex;
+      font-size: 25px;
+      height: 48px;
+      justify-content: center;
+      width: 48px;
+    }
+
+    .cart-item-info {
+      flex: 1;
+    }
+
+    .cart-item-info strong {
+      display: block;
+      font-size: 13px;
+    }
+
+    .cart-item-info small {
+      color: var(--muted);
+      display: block;
+      font-size: 11px;
+      margin-top: 4px;
+    }
+
+    .cart-total {
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
+    }
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      margin: 9px 0;
+    }
+
+    .total-row.final {
+      font-size: 18px;
+      font-weight: 700;
+      margin-top: 17px;
+    }
+
+    .checkout-button {
+      background: var(--green);
+      border-radius: 15px;
+      color: white;
+      font-weight: 700;
+      margin-top: 16px;
+      padding: 15px;
+      width: 100%;
+    }
+
+    .toast {
+      background: var(--ink);
+      border-radius: 12px;
+      bottom: 22px;
+      color: white;
+      left: 50%;
+      opacity: 0;
+      padding: 13px 17px;
+      pointer-events: none;
+      position: fixed;
+      transform: translate(-50%, 20px);
+      transition: .25s;
+      z-index: 20;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    @media (max-width: 1000px) {
+      .product-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .search-panel {
+        max-width: 600px;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .app-shell {
+        padding: 16px 14px 35px;
+      }
+
+      .topbar {
+        flex-wrap: wrap;
+        gap: 13px;
+      }
+
+      .brand {
+        min-width: 0;
+      }
+
+      .location-button {
+        order: 3;
+        width: 100%;
+      }
+
+      .hero {
+        border-radius: 25px;
+        min-height: 430px;
+        padding: 34px 23px;
+      }
+
+      h1 {
+        letter-spacing: -2px;
+      }
+
+      .product-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .product-image {
+        height: 130px;
+      }
+
+      .product-photo {
+        height: 105px;
+      }
+
+      .product-info {
+        padding: 13px;
+      }
+
+      .compare-list {
+        margin: 0 -13px;
+        padding-left: 13px;
+        padding-right: 13px;
+      }
+
+      .compare-row {
+        grid-template-columns: 62px 1fr auto;
+      }
+
+      .why-section {
+        grid-template-columns: 1fr;
+      }
+
+      .why-card {
+        border-bottom: 1px solid rgba(255,255,255,.15);
+        border-right: 0;
+        padding: 14px 4px;
+      }
+
+      .section-heading {
+        align-items: start;
+        flex-direction: column;
+        gap: 12px;
+      }
+    }
+
+    @media (max-width: 390px) {
+      .product-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">B</div>
+        <div class="brand-name">Buy<span>nezt</span></div>
+      </div>
+
+      <button class="location-button" id="locationButton">
+        <span>⌖</span>
+        <span>
+          <small>Delivering to</small>
+          <strong id="locationText">Bengaluru, 560001</strong>
+        </span>
+        <span>⌄</span>
+      </button>
+
+      <div class="top-actions">
+        <button class="icon-button" aria-label="Notifications">♧</button>
+        <button class="icon-button" id="cartButton" aria-label="Open cart">
+          🛒
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow">One search. Every quick-commerce app.</div>
+          <h1>Spend less.<br />Choose smarter.</h1>
+          <p>
+            Compare live-style prices, delivery times and offers across your favourite
+            shopping apps before you place an order.
+          </p>
+        </div>
+
+        <div class="search-panel">
+          <div class="search-box">
+            <span>⌕</span>
+            <input
+              id="searchInput"
+              type="search"
+              placeholder="Search atta, milk, snacks..."
+              autocomplete="off"
+            />
+            <button class="search-button" id="searchButton">Search</button>
+          </div>
+          <div class="suggestions">Popular: atta · milk · cold drinks · fruits</div>
+        </div>
+      </section>
+
+      <nav class="category-row" aria-label="Product categories">
+        <button class="category active" data-category="All">✦ All products</button>
+        <button class="category" data-category="Grocery">🌾 Grocery</button>
+        <button class="category" data-category="Dairy">🥛 Dairy</button>
+        <button class="category" data-category="Snacks">🍿 Snacks</button>
+        <button class="category" data-category="Drinks">🥤 Drinks</button>
+        <button class="category" data-category="Fruits">🍎 Fruits</button>
+        <button class="category" data-category="Household">🧼 Household</button>
+      </nav>
+
+      <section>
+        <div class="section-heading">
+          <div>
+            <h2>Compare and save</h2>
+            <p id="resultText">Showing popular products near you</p>
+          </div>
+
+          <select class="sort-select" id="sortSelect">
+            <option value="recommended">Recommended</option>
+            <option value="price">Lowest price</option>
+            <option value="delivery">Fastest delivery</option>
+            <option value="discount">Biggest discount</option>
+          </select>
+        </div>
+
+        <div class="product-grid" id="productGrid"></div>
+        <div class="empty-state" id="emptyState">
+          <div style="font-size: 42px; margin-bottom: 10px;">⌕</div>
+          <strong>No products found</strong>
+          <p>Try searching for another product.</p>
+        </div>
+      </section>
+
+      <section class="why-section">
+        <div class="why-card">
+          <strong>Real total price</strong>
+          <p>We help you see the product price, delivery fee and offer together.</p>
+        </div>
+        <div class="why-card">
+          <strong>Best for your priority</strong>
+          <p>Choose the cheapest, fastest or most convenient option for your cart.</p>
+        </div>
+        <div class="why-card">
+          <strong>One clear decision</strong>
+          <p>Stop checking four apps manually. Compare everything in one place.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+
+  <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping cart">
+    <div class="drawer-header">
+      <div>
+        <h2>Your cart</h2>
+        <p style="color: var(--muted); font-size: 12px; margin-top: 4px;">
+          Products are grouped by the best available app.
+        </p>
+      </div>
+      <button class="close-button" id="closeCart">×</button>
+    </div>
+
+    <div class="cart-items" id="cartItems">
+      <p style="color: var(--muted); text-align: center; padding: 35px 0;">
+        Your cart is empty.
+      </p>
+    </div>
+
+    <div class="cart-total">
+      <div class="total-row">
+        <span>Products</span>
+        <strong id="subtotal">₹0</strong>
+      </div>
+      <div class="total-row">
+        <span>Estimated fees</span>
+        <strong id="fees">₹0</strong>
+      </div>
+      <div class="total-row final">
+        <span>Estimated total</span>
+        <strong id="total">₹0</strong>
+      </div>
+      <button class="checkout-button" id="checkoutButton">
+        Continue to selected apps →
+      </button>
+    </div>
+  </aside>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    /*
+      HOW LOGOS WORK:
+      storeLogos below maps each platform name to ONE logo file.
+      Create a folder "images/platforms" and put exactly these 4 files
+      inside it: zepto.png, blinkit.png, instamart.png, flipkart.png
+      If a logo file is missing, the code falls back to showing the
+      store name as text instead of a broken image icon.
+    */
+    const storeLogos = {
+      Zepto: "images/platforms/zepto.png",
+      Blinkit: "images/platforms/blinkit.png",
+      Instamart: "images/platforms/instamart.png",
+      Flipkart: "images/platforms/flipkart.png"
+    };
+
+    const storeSearchUrl = (store, query) => {
+      const q = encodeURIComponent(query);
+      switch (store) {
+        case "Zepto":
+          return `https://www.zeptonow.com/search?query=${q}`;
+        case "Blinkit":
+          return `https://blinkit.com/s/?q=${q}`;
+        case "Instamart":
+          return `https://www.swiggy.com/instamart/search?custom_back=true&query=${q}`;
+        case "Flipkart":
+          return `https://www.flipkart.com/search?q=${q}`;
+        default:
+          return null;
+      }
+    };
+
+    const products = [
+  {
+    id: 1,
+    name: "Aashirvaad Whole Wheat Atta",
+    quantity: "5 kg",
+    category: "Grocery",
+    image: "images/atta.png",
+    emoji: "🌾",
+    rating: 4.8,
+    discount: 18,
+    options: [
+      { store: "Zepto", price: 285, time: 18 },
+      { store: "Blinkit", price: 299, time: 12 },
+      { store: "Instamart", price: 292, time: 15 },
+      { store: "Flipkart", price: 288, time: 20 }
+    ]
+  },
+
+  {
+    id: 2,
+    name: "Amul Taaza Toned Milk",
+    quantity: "1 litre",
+    category: "Dairy",
+    image: "images/milk.png",
+    emoji: "🥛",
+    rating: 4.7,
+    discount: 10,
+    options: [
+      { store: "Blinkit", price: 68, time: 11 },
+      { store: "Zepto", price: 66, time: 16 },
+      { store: "Instamart", price: 70, time: 14 },
+      { store: "Flipkart", price: 69, time: 22 }
+    ]
+  },
+
+  {
+    id: 3,
+    name: "Coca-Cola Soft Drink",
+    quantity: "750 ml",
+    category: "Drinks",
+    image: "images/cola.png",
+    emoji: "🥤",
+    rating: 4.6,
+    discount: 25,
+    options: [
+      { store: "Blinkit", price: 42, time: 12 },
+      { store: "Zepto", price: 45, time: 16 },
+      { store: "Instamart", price: 40, time: 17 },
+      { store: "Flipkart", price: 44, time: 21 }
+    ]
+  },
+
+  {
+    id: 4,
+    name: "Lay's India's Magic Masala",
+    quantity: "50 g",
+    category: "Snacks",
+    image: "images/chips.png",
+    emoji: "🥔",
+    rating: 4.5,
+    discount: 12,
+    options: [
+      { store: "Zepto", price: 20, time: 17 },
+      { store: "Blinkit", price: 20, time: 12 },
+      { store: "Instamart", price: 19, time: 15 },
+      { store: "Flipkart", price: 22, time: 20 }
+    ]
+  },
+
+  {
+    id: 5,
+    name: "Fresh Banana Robusta",
+    quantity: "6 pieces",
+    category: "Fruits",
+    image: "images/banana.png",
+    emoji: "🍌",
+    rating: 4.4,
+    discount: 20,
+    options: [
+      { store: "Blinkit", price: 38, time: 13 },
+      { store: "Zepto", price: 42, time: 18 },
+      { store: "Instamart", price: 35, time: 16 },
+      { store: "Flipkart", price: 40, time: 24 }
+    ]
+  },
+
+  {
+    id: 6,
+    name: "Surf Excel Matic Liquid",
+    quantity: "2 litre",
+    category: "Household",
+    image: "images/surf-excel.png",
+    emoji: "🧺",
+    rating: 4.8,
+    discount: 31,
+    options: [
+      { store: "Zepto", price: 224, time: 18 },
+      { store: "Blinkit", price: 239, time: 13 },
+      { store: "Instamart", price: 230, time: 16 },
+      { store: "Flipkart", price: 218, time: 22 }
+    ]
+  },
+
+  {
+    id: 7,
+    name: "India Gate Basmati Rice",
+    quantity: "5 kg",
+    category: "Grocery",
+    image: "images/rice.png",
+    emoji: "🍚",
+    rating: 4.6,
+    discount: 22,
+    options: [
+      { store: "Blinkit", price: 499, time: 14 },
+      { store: "Zepto", price: 452, time: 19 },
+      { store: "Instamart", price: 475, time: 17 },
+      { store: "Flipkart", price: 445, time: 24 }
+    ]
+  },
+
+  {
+    id: 8,
+    name: "Kellogg's Corn Flakes",
+    quantity: "300 g",
+    category: "Grocery",
+    image: "images/cornflakes.png",
+    emoji: "🥣",
+    rating: 4.5,
+    discount: 16,
+    options: [
+      { store: "Blinkit", price: 165, time: 12 },
+      { store: "Zepto", price: 158, time: 17 },
+      { store: "Instamart", price: 160, time: 15 },
+      { store: "Flipkart", price: 152, time: 23 }
+    ]
+  },
+
+  {
+    id: 9,
+    name: "Fortune Sunflower Oil",
+    quantity: "1 litre",
+    category: "Grocery",
+    image: "images/fortune-oil.png",
+    emoji: "🫗",
+    rating: 4.6,
+    discount: 15,
+    options: [
+      { store: "Zepto", price: 135, time: 16 },
+      { store: "Blinkit", price: 139, time: 11 },
+      { store: "Instamart", price: 137, time: 14 },
+      { store: "Flipkart", price: 132, time: 22 }
+    ]
+  },
+
+  {
+    id: 10,
+    name: "Tata Salt",
+    quantity: "1 kg",
+    category: "Grocery",
+    image: "images/tata-salt.png",
+    emoji: "🧂",
+    rating: 4.7,
+    discount: 8,
+    options: [
+      { store: "Zepto", price: 28, time: 15 },
+      { store: "Blinkit", price: 30, time: 10 },
+      { store: "Instamart", price: 29, time: 13 },
+      { store: "Flipkart", price: 27, time: 21 }
+    ]
+  },
+
+  {
+    id: 11,
+    name: "Tata Sampann Toor Dal",
+    quantity: "1 kg",
+    category: "Grocery",
+    image: "images/toor-dal.png",
+    emoji: "🫘",
+    rating: 4.6,
+    discount: 18,
+    options: [
+      { store: "Zepto", price: 165, time: 17 },
+      { store: "Blinkit", price: 172, time: 12 },
+      { store: "Instamart", price: 169, time: 15 },
+      { store: "Flipkart", price: 158, time: 23 }
+    ]
+  },
+
+  {
+    id: 12,
+    name: "Sugar",
+    quantity: "1 kg",
+    category: "Grocery",
+    image: "images/sugar.png",
+    emoji: "🍬",
+    rating: 4.5,
+    discount: 5,
+    options: [
+      { store: "Zepto", price: 48, time: 16 },
+      { store: "Blinkit", price: 50, time: 11 },
+      { store: "Instamart", price: 49, time: 14 },
+      { store: "Flipkart", price: 46, time: 22 }
+    ]
+  },
+
+  {
+    id: 13,
+    name: "Maggi 2-Minute Noodles",
+    quantity: "Pack of 12",
+    category: "Grocery",
+    image: "images/maggi.png",
+    emoji: "🍜",
+    rating: 4.8,
+    discount: 14,
+    options: [
+      { store: "Zepto", price: 168, time: 15 },
+      { store: "Blinkit", price: 175, time: 10 },
+      { store: "Instamart", price: 170, time: 13 },
+      { store: "Flipkart", price: 160, time: 22 }
+    ]
+  },
+
+  {
+    id: 14,
+    name: "Everest Garam Masala",
+    quantity: "100 g",
+    category: "Grocery",
+    image: "images/everest-masala.png",
+    emoji: "🌶️",
+    rating: 4.7,
+    discount: 12,
+    options: [
+      { store: "Zepto", price: 72, time: 16 },
+      { store: "Blinkit", price: 75, time: 11 },
+      { store: "Instamart", price: 74, time: 14 },
+      { store: "Flipkart", price: 69, time: 22 }
+    ]
+  },
+
+  {
+    id: 15,
+    name: "Amul Butter",
+    quantity: "100 g",
+    category: "Dairy",
+    image: "images/amul-butter.png",
+    emoji: "🧈",
+    rating: 4.8,
+    discount: 8,
+    options: [
+      { store: "Zepto", price: 58, time: 16 },
+      { store: "Blinkit", price: 60, time: 11 },
+      { store: "Instamart", price: 59, time: 14 },
+      { store: "Flipkart", price: 56, time: 22 }
+    ]
+  },
+
+  {
+    id: 16,
+    name: "Amul Fresh Paneer",
+    quantity: "200 g",
+    category: "Dairy",
+    image: "images/amul-paneer.png",
+    emoji: "🧀",
+    rating: 4.7,
+    discount: 10,
+    options: [
+      { store: "Zepto", price: 82, time: 17 },
+      { store: "Blinkit", price: 88, time: 12 },
+      { store: "Instamart", price: 85, time: 14 },
+      { store: "Flipkart", price: 80, time: 23 }
+    ]
+  },
+
+  {
+    id: 17,
+    name: "Amul Masti Curd",
+    quantity: "400 g",
+    category: "Dairy",
+    image: "images/amul-curd.png",
+    emoji: "🥛",
+    rating: 4.6,
+    discount: 7,
+    options: [
+      { store: "Zepto", price: 38, time: 16 },
+      { store: "Blinkit", price: 40, time: 11 },
+      { store: "Instamart", price: 39, time: 14 },
+      { store: "Flipkart", price: 37, time: 22 }
+    ]
+  },
+
+  {
+    id: 18,
+    name: "Farm Fresh Eggs",
+    quantity: "6 pieces",
+    category: "Dairy",
+    image: "images/eggs.png",
+    emoji: "🥚",
+    rating: 4.5,
+    discount: 10,
+    options: [
+      { store: "Zepto", price: 48, time: 15 },
+      { store: "Blinkit", price: 50, time: 10 },
+      { store: "Instamart", price: 49, time: 13 },
+      { store: "Flipkart", price: 52, time: 22 }
+    ]
+  },
+
+  {
+    id: 19,
+    name: "Britannia Milk Bread",
+    quantity: "400 g",
+    category: "Dairy",
+    image: "images/bread.png",
+    emoji: "🍞",
+    rating: 4.5,
+    discount: 6,
+    options: [
+      { store: "Zepto", price: 42, time: 16 },
+      { store: "Blinkit", price: 45, time: 11 },
+      { store: "Instamart", price: 44, time: 14 },
+      { store: "Flipkart", price: 43, time: 21 }
+    ]
+  },
+
+  {
+    id: 20,
+    name: "Quaker Oats",
+    quantity: "1 kg",
+    category: "Grocery",
+    image: "images/quaker-oats.png",
+    emoji: "🥣",
+    rating: 4.6,
+    discount: 18,
+    options: [
+      { store: "Zepto", price: 155, time: 17 },
+      { store: "Blinkit", price: 165, time: 12 },
+      { store: "Instamart", price: 160, time: 14 },
+      { store: "Flipkart", price: 149, time: 23 }
+    ]
+  },
+
+  {
+    id: 21,
+    name: "Kurkure Masala Munch",
+    quantity: "90 g",
+    category: "Snacks",
+    image: "images/kurkure.png",
+    emoji: "🥨",
+    rating: 4.5,
+    discount: 10,
+    options: [
+      { store: "Zepto", price: 35, time: 16 },
+      { store: "Blinkit", price: 38, time: 11 },
+      { store: "Instamart", price: 36, time: 14 },
+      { store: "Flipkart", price: 34, time: 22 }
+    ]
+  },
+
+  {
+    id: 22,
+    name: "Parle-G Biscuits",
+    quantity: "800 g",
+    category: "Snacks",
+    image: "images/parle-g.png",
+    emoji: "🍪",
+    rating: 4.6,
+    discount: 9,
+    options: [
+      { store: "Zepto", price: 78, time: 15 },
+      { store: "Blinkit", price: 82, time: 10 },
+      { store: "Instamart", price: 80, time: 13 },
+      { store: "Flipkart", price: 75, time: 21 }
+    ]
+  },
+
+  {
+    id: 23,
+    name: "Britannia Good Day",
+    quantity: "200 g",
+    category: "Snacks",
+    image: "images/good-day.png",
+    emoji: "🍪",
+    rating: 4.5,
+    discount: 12,
+    options: [
+      { store: "Zepto", price: 42, time: 16 },
+      { store: "Blinkit", price: 45, time: 11 },
+      { store: "Instamart", price: 43, time: 14 },
+      { store: "Flipkart", price: 40, time: 22 }
+    ]
+  },
+
+  {
+    id: 24,
+    name: "Oreo Original",
+    quantity: "120 g",
+    category: "Snacks",
+    image: "images/oreo.png",
+    emoji: "🍪",
+    rating: 4.7,
+    discount: 15,
+    options: [
+      { store: "Zepto", price: 35, time: 16 },
+      { store: "Blinkit", price: 38, time: 11 },
+      { store: "Instamart", price: 36, time: 14 },
+      { store: "Flipkart", price: 34, time: 22 }
+    ]
+  },
+
+  {
+    id: 25,
+    name: "Haldiram's Bhujia",
+    quantity: "200 g",
+    category: "Snacks",
+    image: "images/bhujia.png",
+    emoji: "🥜",
+    rating: 4.7,
+    discount: 13,
+    options: [
+      { store: "Zepto", price: 62, time: 16 },
+      { store: "Blinkit", price: 65, time: 11 },
+      { store: "Instamart", price: 64, time: 14 },
+      { store: "Flipkart", price: 59, time: 22 }
+    ]
+  },
+
+  {
+    id: 26,
+    name: "Cadbury Dairy Milk",
+    quantity: "110 g",
+    category: "Snacks",
+    image: "images/dairy-milk.png",
+    emoji: "🍫",
+    rating: 4.8,
+    discount: 15,
+    options: [
+      { store: "Zepto", price: 105, time: 15 },
+      { store: "Blinkit", price: 110, time: 10 },
+      { store: "Instamart", price: 108, time: 13 },
+      { store: "Flipkart", price: 99, time: 22 }
+    ]
+  },
+
+  {
+    id: 27,
+    name: "Pepsi",
+    quantity: "750 ml",
+    category: "Drinks",
+    image: "images/pepsi.png",
+    emoji: "🥤",
+    rating: 4.5,
+    discount: 20,
+    options: [
+      { store: "Zepto", price: 40, time: 16 },
+      { store: "Blinkit", price: 42, time: 11 },
+      { store: "Instamart", price: 39, time: 14 },
+      { store: "Flipkart", price: 41, time: 22 }
+    ]
+  },
+
+  {
+    id: 28,
+    name: "Sprite",
+    quantity: "750 ml",
+    category: "Drinks",
+    image: "images/sprite.png",
+    emoji: "🥤",
+    rating: 4.6,
+    discount: 20,
+    options: [
+      { store: "Zepto", price: 40, time: 16 },
+      { store: "Blinkit", price: 42, time: 11 },
+      { store: "Instamart", price: 39, time: 14 },
+      { store: "Flipkart", price: 41, time: 22 }
+    ]
+  },
+
+  {
+    id: 29,
+    name: "Sting Energy Drink",
+    quantity: "250 ml",
+    category: "Drinks",
+    image: "images/sting.png",
+    emoji: "⚡",
+    rating: 4.6,
+    discount: 12,
+    options: [
+      { store: "Zepto", price: 48, time: 16 },
+      { store: "Blinkit", price: 50, time: 11 },
+      { store: "Instamart", price: 49, time: 14 },
+      { store: "Flipkart", price: 46, time: 22 }
+    ]
+  },
+
+  {
+    id: 30,
+    name: "Red Bull Energy Drink",
+    quantity: "250 ml",
+    category: "Drinks",
+    image: "images/red-bull.png",
+    emoji: "🥤",
+    rating: 4.7,
+    discount: 8,
+    options: [
+      { store: "Zepto", price: 125, time: 16 },
+      { store: "Blinkit", price: 130, time: 11 },
+      { store: "Instamart", price: 128, time: 14 },
+      { store: "Flipkart", price: 120, time: 22 }
+    ]
+  },
+
+  {
+    id: 31,
+    name: "Bisleri Mineral Water",
+    quantity: "1 litre",
+    category: "Drinks",
+    image: "images/bisleri.png",
+    emoji: "💧",
+    rating: 4.6,
+    discount: 5,
+    options: [
+      { store: "Zepto", price: 20, time: 15 },
+      { store: "Blinkit", price: 22, time: 10 },
+      { store: "Instamart", price: 21, time: 13 },
+      { store: "Flipkart", price: 19, time: 22 }
+    ]
+  },
+
+  {
+    id: 32,
+    name: "Fresh Red Apples",
+    quantity: "4 pieces",
+    category: "Fruits",
+    image: "images/apple.png",
+    emoji: "🍎",
+    rating: 4.5,
+    discount: 18,
+    options: [
+      { store: "Zepto", price: 120, time: 18 },
+      { store: "Blinkit", price: 125, time: 13 },
+      { store: "Instamart", price: 115, time: 16 },
+      { store: "Flipkart", price: 110, time: 24 }
+    ]
+  },
+
+  {
+    id: 33,
+    name: "Fresh Tomatoes",
+    quantity: "1 kg",
+    category: "Fruits",
+    image: "images/tomato.png",
+    emoji: "🍅",
+    rating: 4.4,
+    discount: 15,
+    options: [
+      { store: "Zepto", price: 42, time: 18 },
+      { store: "Blinkit", price: 45, time: 13 },
+      { store: "Instamart", price: 40, time: 16 },
+      { store: "Flipkart", price: 38, time: 24 }
+    ]
+  },
+
+  {
+    id: 34,
+    name: "Fresh Onions",
+    quantity: "1 kg",
+    category: "Fruits",
+    image: "images/onion.png",
+    emoji: "🧅",
+    rating: 4.4,
+    discount: 12,
+    options: [
+      { store: "Zepto", price: 38, time: 18 },
+      { store: "Blinkit", price: 40, time: 13 },
+      { store: "Instamart", price: 36, time: 16 },
+      { store: "Flipkart", price: 35, time: 24 }
+    ]
+  },
+
+  {
+    id: 35,
+    name: "Fresh Potatoes",
+    quantity: "1 kg",
+    category: "Fruits",
+    image: "images/potato.png",
+    emoji: "🥔",
+    rating: 4.4,
+    discount: 10,
+    options: [
+      { store: "Zepto", price: 35, time: 18 },
+      { store: "Blinkit", price: 38, time: 13 },
+      { store: "Instamart", price: 34, time: 16 },
+      { store: "Flipkart", price: 32, time: 24 }
+    ]
+  },
+
+  {
+    id: 36,
+    name: "Fresh Lemon",
+    quantity: "250 g",
+    category: "Fruits",
+    image: "images/lemon.png",
+    emoji: "🍋",
+    rating: 4.4,
+    discount: 15,
+    options: [
+      { store: "Zepto", price: 30, time: 18 },
+      { store: "Blinkit", price: 32, time: 13 },
+      { store: "Instamart", price: 28, time: 16 },
+      { store: "Flipkart", price: 29, time: 24 }
+    ]
+  },
+
+  {
+    id: 37,
+    name: "Vim Dishwash Liquid",
+    quantity: "500 ml",
+    category: "Household",
+    image: "images/vim.png",
+    emoji: "🧽",
+    rating: 4.7,
+    discount: 22,
+    options: [
+      { store: "Zepto", price: 95, time: 17 },
+      { store: "Blinkit", price: 99, time: 12 },
+      { store: "Instamart", price: 97, time: 15 },
+      { store: "Flipkart", price: 89, time: 23 }
+    ]
+  },
+
+  {
+    id: 38,
+    name: "Harpic Toilet Cleaner",
+    quantity: "1 litre",
+    category: "Household",
+    image: "images/harpic.png",
+    emoji: "🧴",
+    rating: 4.6,
+    discount: 25,
+    options: [
+      { store: "Zepto", price: 105, time: 17 },
+      { store: "Blinkit", price: 110, time: 12 },
+      { store: "Instamart", price: 108, time: 15 },
+      { store: "Flipkart", price: 99, time: 23 }
+    ]
+  },
+
+  {
+    id: 39,
+    name: "Lizol Floor Cleaner",
+    quantity: "1 litre",
+    category: "Household",
+    image: "images/lizol.png",
+    emoji: "🧹",
+    rating: 4.7,
+    discount: 28,
+    options: [
+      { store: "Zepto", price: 135, time: 17 },
+      { store: "Blinkit", price: 142, time: 12 },
+      { store: "Instamart", price: 139, time: 15 },
+      { store: "Flipkart", price: 128, time: 23 }
+    ]
+  },
+
+  {
+    id: 40,
+    name: "Surf Excel Matic Powder",
+    quantity: "2 kg",
+    category: "Household",
+    image: "images/surf-excel-powder.png",
+    emoji: "🧺",
+    rating: 4.7,
+    discount: 25,
+    options: [
+      { store: "Zepto", price: 285, time: 17 },
+      { store: "Blinkit", price: 299, time: 12 },
+      { store: "Instamart", price: 292, time: 15 },
+      { store: "Flipkart", price: 275, time: 23 }
+    ]
+  }
+];
+
+    let activeCategory = "All";
+    let searchTerm = "";
+    let sortMode = "recommended";
+    let cart = [];
+
+    const productGrid = document.getElementById("productGrid");
+    const emptyState = document.getElementById("emptyState");
+    const resultText = document.getElementById("resultText");
+    const cartDrawer = document.getElementById("cartDrawer");
+    const drawerBackdrop = document.getElementById("drawerBackdrop");
+    const toast = document.getElementById("toast");
+
+    const money = value => `₹${value.toLocaleString("en-IN")}`;
+
+    const storeOrder = ["Zepto", "Blinkit", "Instamart", "Flipkart"];
+
+    function orderedOptions(product) {
+      return [...product.options].sort((a, b) => a.price - b.price);
+    }
+
+    function bestOption(product) {
+      return [...product.options].sort((a, b) => a.price - b.price)[0];
+    }
+
+    function fastestOption(product) {
+      return [...product.options].sort((a, b) => a.delivery - b.delivery)[0];
+    }
+
+    function getVisibleProducts() {
+      let list = products.filter(product => {
+        const matchesCategory = activeCategory === "All" || product.category === activeCategory;
+        const matchesSearch = `${product.name} ${product.category}`.toLowerCase().includes(searchTerm.toLowerCase());
+        return matchesCategory && matchesSearch;
+      });
+
+      if (sortMode === "price") list.sort((a, b) => bestOption(a).price - bestOption(b).price);
+      if (sortMode === "delivery") list.sort((a, b) => fastestOption(a).delivery - fastestOption(b).delivery);
+      if (sortMode === "discount") list.sort((a, b) => b.discount - a.discount);
+
+      return list;
+    }
+
+    function renderProducts() {
+      const visible = getVisibleProducts();
+
+      productGrid.innerHTML = visible.map(product => {
+        const cheapest = bestOption(product);
+
+        return `
+          <article class="product-card">
+            <div class="product-image">
+              <span class="deal-label">${product.discount}% OFF</span>
+              <img
+                class="product-photo"
+                src="${product.image}"
+                alt="${product.name}"
+                onerror="this.onerror=null; this.replaceWith(Object.assign(document.createElement('span'), { className: 'product-emoji', style: 'font-size:56px;', textContent: '${product.emoji}' }));"
+              />
+            </div>
+
+            <div class="product-info">
+              <h3>${product.name}</h3>
+              <div class="product-meta">
+                ${product.quantity} · <span class="rating">★ ${product.rating}</span>
+              </div>
+
+              <div class="compare-list">
+                ${orderedOptions(product).map(option => `
+                  <div class="compare-row">
+                    <span class="store-logo">
+                      <img
+                        class="${option.className}"
+                        src="${storeLogos[option.store] || ''}"
+                        alt="${option.store}"
+                        onerror="this.onerror=null; this.replaceWith(Object.assign(document.createElement('span'), { className: 'store ' + '${option.className}', textContent: '${option.store}' }));"
+                      />
+                    </span>
+                    <span class="delivery">${option.delivery} min</span>
+                    <span class="price ${option.price === cheapest.price ? "best-price" : ""}">
+                      ${money(option.price)}
+                    </span>
+                  </div>
+                `).join("")}
+              </div>
+
+              <button class="add-button" onclick="addToCart(${product.id}, this)">
+                Add cheapest · ${money(cheapest.price)}
+              </button>
+            </div>
+          </article>
+        `;
+      }).join("");
+
+      emptyState.style.display = visible.length ? "none" : "block";
+      resultText.textContent = visible.length
+        ? `${visible.length} products compared near ${document.getElementById("locationText").textContent}`
+        : "Try a different search or category";
+    }
+
+    function addToCart(productId, buttonEl) {
+      const product = products.find(item => item.id === productId);
+      const option = bestOption(product);
+      const existing = cart.find(item => item.product.id === productId);
+
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        cart.push({ product, option, quantity: 1 });
+      }
+
+      updateCart();
+      showToast(`${product.name} added from ${option.store}`);
+
+      const cartCountEl = document.getElementById("cartCount");
+      cartCountEl.classList.remove("bump");
+      void cartCountEl.offsetWidth;
+      cartCountEl.classList.add("bump");
+
+      if (buttonEl) {
+        const card = buttonEl.closest(".product-card");
+        if (card) {
+          card.classList.remove("just-added");
+          void card.offsetWidth;
+          card.classList.add("just-added");
+        }
+      }
+    }
+
+    function updateCart() {
+      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+      const subtotal = cart.reduce((sum, item) => sum + item.option.price * item.quantity, 0);
+      const estimatedFees = cart.length ? 20 + Math.max(0, cart.length - 1) * 10 : 0;
+
+      document.getElementById("cartCount").textContent = totalItems;
+      document.getElementById("subtotal").textContent = money(subtotal);
+      document.getElementById("fees").textContent = money(estimatedFees);
+      document.getElementById("total").textContent = money(subtotal + estimatedFees);
+
+      document.getElementById("cartItems").innerHTML = cart.length
+        ? cart.map((item, index) => `
+          <div class="cart-item">
+            <div class="cart-item-icon">${item.product.emoji}</div>
+            <div class="cart-item-info">
+              <strong>${item.product.name}</strong>
+              <small>${item.quantity} × ${money(item.option.price)} · ${item.option.store}</small>
+            </div>
+            <button onclick="removeFromCart(${index})" style="background: transparent; color: var(--red); font-size: 18px;">×</button>
+          </div>
+        `).join("")
+        : `<p style="color: var(--muted); text-align: center; padding: 35px 0;">Your cart is empty.</p>`;
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      updateCart();
+    }
+
+    function openCart() {
+      cartDrawer.classList.add("open");
+      drawerBackdrop.classList.add("open");
+    }
+
+    function closeCart() {
+      cartDrawer.classList.remove("open");
+      drawerBackdrop.classList.remove("open");
+    }
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 2500);
+    }
+
+    document.querySelectorAll(".category").forEach(button => {
+      button.addEventListener("click", () => {
+        document.querySelectorAll(".category").forEach(item => item.classList.remove("active"));
+        button.classList.add("active");
+        activeCategory = button.dataset.category;
+        renderProducts();
+      });
+    });
+
+    document.getElementById("searchInput").addEventListener("input", event => {
+      searchTerm = event.target.value.trim();
+      renderProducts();
+    });
+
+    document.getElementById("searchButton").addEventListener("click", () => {
+      searchTerm = document.getElementById("searchInput").value.trim();
+      renderProducts();
+    });
+
+    document.getElementById("sortSelect").addEventListener("change", event => {
+      sortMode = event.target.value;
+      renderProducts();
+    });
+
+    document.getElementById("cartButton").addEventListener("click", openCart);
+    document.getElementById("closeCart").addEventListener("click", closeCart);
+    drawerBackdrop.addEventListener("click", closeCart);
+
+    document.getElementById("locationButton").addEventListener("click", () => {
+      const location = prompt("Enter your city or pincode:", "Bengaluru, 560001");
+      if (location && location.trim()) {
+        document.getElementById("locationText").textContent = location.trim();
+        renderProducts();
+        showToast(`Location updated to ${location.trim()}`);
+      }
+    });
+
+    document.getElementById("checkoutButton").addEventListener("click", () => {
+      if (!cart.length) {
+        showToast("Add a product before continuing");
+        return;
+      }
+
+      const seenStores = new Set();
+
+      cart.forEach(item => {
+        const store = item.option.store;
+        if (seenStores.has(store)) return;
+        seenStores.add(store);
+
+        const url = storeSearchUrl(store, item.product.name);
+        if (url) {
+          window.open(url, "_blank");
+        }
+      });
+
+      const stores = [...seenStores];
+      showToast(`Opening ${stores.join(", ")}...`);
+    });
+
+    renderProducts();
+    updateCart();
+  </script>
+</body>
+</html>
